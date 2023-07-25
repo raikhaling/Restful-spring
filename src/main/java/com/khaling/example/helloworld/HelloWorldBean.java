@@ -1,4 +1,4 @@
-package com.khaling.rest.crud.restfulcrudservices.helloworld;
+package com.khaling.example.helloworld;
 
 public class HelloWorldBean {
     String message;

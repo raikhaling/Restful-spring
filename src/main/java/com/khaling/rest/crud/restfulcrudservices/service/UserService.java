@@ -1,7 +1,6 @@
-package com.khaling.rest.crud.restfulcrudservices.Dao;
-import com.khaling.rest.crud.restfulcrudservices.Model.User;
+package com.khaling.rest.crud.restfulcrudservices.service;
+import com.khaling.rest.crud.restfulcrudservices.model.User;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
  * For now only static
  */
 @Component
-public class UserDaoService {
+public class UserService {
     private static List<User> users = new ArrayList<>();
     private static Integer idCount = 3;
     static {
@@ -41,6 +40,19 @@ public class UserDaoService {
            }
        }
        return null;
+    }
+    public User deleteById(int id){
+        User toDelete = null;
+        for (User user: users){
+            if(user.getId() == id){
+                toDelete = user;
+                break;
+            }
+
+        }
+        if(toDelete != null)
+            users.remove(toDelete);
+        return toDelete;
     }
 
 }

@@ -1,6 +1,6 @@
-package com.khaling.rest.crud.restfulcrudservices.helloworld;
+package com.khaling.example.helloworld;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,6 +27,15 @@ public class HelloWorldController {
     @GetMapping(path = "/hello-world/path-variable/{name}")
     public HelloWorldBean helloWorldPathVariable(@PathVariable String name){
         return new HelloWorldBean(String.format("Hello World, %s",name));
+    }
+    /**
+     * ResponseEntity is a class that represents the entire HTTP response that a controller method can
+     * return to the client => is a powerful way to customize and control HTTP response when building REESTFUL api
+     */
+    @GetMapping("/hellp-world-response")
+    public ResponseEntity<String> sayHello(){
+        String message = "Hello form ResponseEntity";
+        return ResponseEntity.ok(message);
     }
 
 }

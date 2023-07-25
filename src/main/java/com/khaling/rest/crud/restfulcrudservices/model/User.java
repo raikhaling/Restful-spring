@@ -1,5 +1,4 @@
-package com.khaling.rest.crud.restfulcrudservices.Model;
-import org.springframework.stereotype.Component;
+package com.khaling.rest.crud.restfulcrudservices.model;
 import java.time.LocalDate;
 
 
@@ -7,6 +6,10 @@ public class User {
     private Integer id;
     private String name;
     private LocalDate birthdate;
+
+    public User() {
+
+    }
 
     public User(Integer id, String name, LocalDate birthdate) {
         this.id = id;
