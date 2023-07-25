@@ -1,10 +1,9 @@
-package com.khaling.rest.crud.restfulcrudservices.user;
+package com.khaling.rest.crud.restfulcrudservices.controller;
 
+import com.khaling.rest.crud.restfulcrudservices.Dao.UserDaoService;
+import com.khaling.rest.crud.restfulcrudservices.Model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,8 +22,9 @@ public class UserResource {
     public User getUserById(@PathVariable int id){
         return service.findOne(id);
     }
-    @PostMapping(path = "/save-user")
-    public User saveUser(User user){
+
+    @PostMapping(path = "/users")
+    public User createUser(@RequestBody User user){
         return service.save(user);
     }
 }

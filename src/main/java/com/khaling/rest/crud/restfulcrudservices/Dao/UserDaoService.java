@@ -1,4 +1,5 @@
-package com.khaling.rest.crud.restfulcrudservices.user;
+package com.khaling.rest.crud.restfulcrudservices.Dao;
+import com.khaling.rest.crud.restfulcrudservices.Model.User;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Component
 public class UserDaoService {
     private static List<User> users = new ArrayList<>();
-    private static Integer idCount = 0;
+    private static Integer idCount = 3;
     static {
         users.add(new User(1,"Nabin", LocalDate.now()));
         users.add(new User(2,"Santosh", LocalDate.now().plusYears(1)));
