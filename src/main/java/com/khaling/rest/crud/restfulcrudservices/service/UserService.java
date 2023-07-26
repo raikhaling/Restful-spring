@@ -1,5 +1,5 @@
 package com.khaling.rest.crud.restfulcrudservices.service;
-import com.khaling.rest.crud.restfulcrudservices.model.User;
+import com.khaling.rest.crud.restfulcrudservices.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

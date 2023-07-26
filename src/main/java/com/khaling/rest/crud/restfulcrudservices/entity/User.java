@@ -1,4 +1,4 @@
-package com.khaling.rest.crud.restfulcrudservices.model;
+package com.khaling.rest.crud.restfulcrudservices.entity;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
