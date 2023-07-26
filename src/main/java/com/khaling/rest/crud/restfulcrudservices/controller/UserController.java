@@ -1,10 +1,15 @@
 package com.khaling.rest.crud.restfulcrudservices.controller;
 
+import com.khaling.rest.crud.restfulcrudservices.exception.ValidationException;
 import com.khaling.rest.crud.restfulcrudservices.service.UserService;
 import com.khaling.rest.crud.restfulcrudservices.exception.UserNotFoundException;
 import com.khaling.rest.crud.restfulcrudservices.model.User;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,7 +41,11 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Object> createUser(@RequestBody User user){
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+        String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
+        throw new ValidationException(message);
+        }
         if (user == null){
             throw new UserNotFoundException("Not a proper format to be added.");
         }

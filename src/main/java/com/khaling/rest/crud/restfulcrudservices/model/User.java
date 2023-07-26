@@ -1,10 +1,15 @@
 package com.khaling.rest.crud.restfulcrudservices.model;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 
 
 public class User {
     private Integer id;
+    @Size(min = 2)  //minimum size must be of 2
     private String name;
+    @Past   //birthdate must be of past
     private LocalDate birthdate;
 
     public User() {
