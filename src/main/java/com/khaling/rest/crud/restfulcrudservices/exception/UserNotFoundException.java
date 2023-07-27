@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 //Spring will return a status code of 500 (Internal Server Error) for unhandled exceptions.
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class UserNotFoundException extends RuntimeException{
-    public UserNotFoundException(String message){
+public class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException(String message) {
         super(message);
     }
 

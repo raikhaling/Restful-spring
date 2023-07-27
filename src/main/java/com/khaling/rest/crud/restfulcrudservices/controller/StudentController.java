@@ -4,12 +4,16 @@ import com.khaling.rest.crud.restfulcrudservices.entity.StudentEntity;
 import com.khaling.rest.crud.restfulcrudservices.exception.ValidationException;
 import com.khaling.rest.crud.restfulcrudservices.repository.StudentRepository;
 import com.khaling.rest.crud.restfulcrudservices.exception.UserNotFoundException;
-import com.khaling.rest.crud.restfulcrudservices.entity.User;
 import jakarta.validation.Valid;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+
 
 import java.net.URI;
 import java.util.List;
@@ -25,6 +29,15 @@ public class StudentController {
     }
 
 
+    @GetMapping("/")
+    public String returnThym(Model model) {
+        model.addAttribute("message", "Hello from Thymeleaf!");
+        return "hello";
+    }
+    @GetMapping("/style")
+    public String style() {
+        return "add-css-js-demo";
+    }
     //retrieve all users
     @GetMapping("/users")
     public List<StudentEntity> retrieveAllUsers(){
@@ -35,12 +48,24 @@ public class StudentController {
         return users;
     }
     @GetMapping("/users/{id}")
-    public StudentEntity getUserById(@PathVariable int id){
+    public EntityModel<StudentEntity> getUserById(@PathVariable int id){
         Optional<StudentEntity> user = studentRepository.findById(id);
         if(!user.isPresent()){ // confirms user is coming back as a proper object
             throw new UserNotFoundException("id -> "+id);
         }
-        return user.get();
+        //HATEOAS
+        // Wrap the user object with HATEOAS links
+        EntityModel<StudentEntity> entityModel = EntityModel.of(user.get());
+
+        // Add the self-link for the current user
+        entityModel.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
+                .methodOn(this.getClass()).getUserById(id)).withSelfRel());
+
+        // Add the link to 'retrieveAllUsers()' with the relation 'all-users'
+        entityModel.add(WebMvcLinkBuilder
+                .linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).retrieveAllUsers()).withRel("all-users"));
+
+        return entityModel;
     }
 
     @PostMapping("/users")

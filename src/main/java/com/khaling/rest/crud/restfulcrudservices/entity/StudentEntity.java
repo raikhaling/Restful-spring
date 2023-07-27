@@ -1,7 +1,6 @@
 package com.khaling.rest.crud.restfulcrudservices.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 
 @Entity
