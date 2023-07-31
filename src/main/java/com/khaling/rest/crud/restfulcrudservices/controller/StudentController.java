@@ -2,14 +2,11 @@ package com.khaling.rest.crud.restfulcrudservices.controller;
 
 import com.khaling.rest.crud.restfulcrudservices.entity.StudentEntity;
 import com.khaling.rest.crud.restfulcrudservices.exception.ValidationException;
-import com.khaling.rest.crud.restfulcrudservices.repository.StudentRepository;
-import com.khaling.rest.crud.restfulcrudservices.exception.UserNotFoundException;
 import com.khaling.rest.crud.restfulcrudservices.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -37,12 +34,12 @@ public class StudentController {
     }
 
     //retrieve all users
-    @GetMapping("/users")
+    @GetMapping("/students")
     public List<StudentEntity> retrieveAllUsers() {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/students/{id}")
     public EntityModel<StudentEntity> getUserById(@PathVariable int id) {
         StudentEntity student = studentService.getStudentById(id);
         //HATEOAS
@@ -57,7 +54,7 @@ public class StudentController {
         return entityModel;
     }
 
-    @PostMapping("/users")
+    @PostMapping("/students")
     public ResponseEntity<Object> createUser(@Valid @RequestBody StudentEntity student, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String message = bindingResult.getAllErrors().get(0).getDefaultMessage();
@@ -72,7 +69,7 @@ public class StudentController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/students/{id}")
     public void deleteUser(@PathVariable int id) {
         studentService.deleteStudent(id);
 
